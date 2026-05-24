@@ -5,13 +5,11 @@
 const https = require('https');
 const http = require('http');
 
-// 飞书配置（从环境变量读取）
 const FEISHU_APP_ID = process.env.FEISHU_APP_ID || '';
 const FEISHU_APP_SECRET = process.env.FEISHU_APP_SECRET || '';
 const FEISHU_BASE_TOKEN = process.env.FEISHU_BASE_TOKEN || 'IxlhbeTG5avSRqsDbE0cleyjnad';
 const FEISHU_TABLE_ID = process.env.FEISHU_TABLE_ID || 'tbl8NPFCvyIIDMED';
 
-// 获取飞书 tenant_access_token
 async function getTenantAccessToken() {
     return new Promise((resolve, reject) => {
         const data = JSON.stringify({
@@ -53,7 +51,6 @@ async function getTenantAccessToken() {
     });
 }
 
-// 向飞书多维表格写入记录
 async function writeRecordToBase(token, recordData) {
     return new Promise((resolve, reject) => {
         const data = JSON.stringify({
@@ -62,6 +59,7 @@ async function writeRecordToBase(token, recordData) {
                 "模型名称": recordData.modelName,
                 "模型颜色/参数": recordData.modelParams || "",
                 "积分币数量": parseInt(recordData.coins) || 0,
+                "积分币是否已给": recordData.coinsPaid || "否"
             }
         });
 
@@ -100,7 +98,6 @@ async function writeRecordToBase(token, recordData) {
     });
 }
 
-// HTTP 请求处理
 async function handler(req, res) {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -150,7 +147,6 @@ async function handler(req, res) {
     });
 }
 
-// 本地开发服务器
 if (require.main === module) {
     const port = process.env.PORT || 3000;
     const server = http.createServer(handler);
