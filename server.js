@@ -62,10 +62,6 @@ async function writeRecordToBase(token, recordData) {
                 "模型名称": recordData.modelName,
                 "模型颜色/参数": recordData.modelParams || "",
                 "积分币数量": parseInt(recordData.coins) || 0,
-                "制作者": recordData.maker || "",
-                "接收人/备注": recordData.note || "",
-                "状态": "待打印",
-                "预约时间": new Date().toISOString()
             }
         });
 
