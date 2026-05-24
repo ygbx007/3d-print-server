@@ -60,6 +60,7 @@ async function writeRecordToBase(token, recordData) {
                 "模型颜色/参数": recordData.modelParams || "",
                 "积分币数量": parseInt(recordData.coins) || 0,
                 "积分币是否已给": recordData.coinsPaid || "否"
+                "预约时间": Date.now()
             }
         });
 
